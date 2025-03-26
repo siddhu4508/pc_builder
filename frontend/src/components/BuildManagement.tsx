@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { api } from '../services/api';
+import { adminAPI, authAPI, componentsAPI } from '../services/api';
 import {
   Table,
   Button,
@@ -60,7 +60,7 @@ const BuildManagement: React.FC = () => {
   const fetchBuilds = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/admin/builds/?page=${currentPage}`);
+      const response = await adminAPI.getBuilds(currentPage);
       setBuilds(response.data.results);
       setTotalPages(Math.ceil(response.data.count / 10));
     } catch (err) {
@@ -88,7 +88,7 @@ const BuildManagement: React.FC = () => {
   const handleDelete = async (buildId: number) => {
     if (window.confirm('Are you sure you want to delete this build?')) {
       try {
-        await api.delete(`/admin/builds/${buildId}/`);
+        await adminAPI.delete(`/admin/builds/${buildId}/`);
         fetchBuilds();
       } catch (err) {
         setError('Failed to delete build');
@@ -99,7 +99,7 @@ const BuildManagement: React.FC = () => {
 
   const handleShare = async (buildId: number) => {
     try {
-      const response = await api.post(`/admin/builds/${buildId}/share/`);
+      const response = await adminAPI.post(`/admin/builds/${buildId}/share/`);
       setShareUrl(response.data.share_url);
       setShowShareModal(true);
     } catch (err) {

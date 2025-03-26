@@ -1,4 +1,4 @@
-import api from './api';
+import { adminAPI, authAPI, componentsAPI } from "../services/api";
 
 interface LoginCredentials {
   username: string;
@@ -29,49 +29,49 @@ class AuthService {
 
   constructor() {
     // Load tokens from localStorage if they exist
-    this.accessToken = localStorage.getItem('accessToken');
-    this.refreshToken = localStorage.getItem('refreshToken');
+    this.accessToken = localStorage.getItem("accessToken");
+    this.refreshToken = localStorage.getItem("refreshToken");
   }
 
   async login(credentials: LoginCredentials): Promise<void> {
     try {
-      const response = await api.post<AuthResponse>('/api/token/', credentials);
+      const response = await api.post<AuthResponse>("/api/token/", credentials);
       this.setTokens(response.data.access, response.data.refresh);
     } catch (error) {
-      throw new Error('Login failed');
+      throw new Error("Login failed");
     }
   }
 
   async register(data: RegisterData): Promise<void> {
     try {
-      await api.post('/api/register/', data);
+      await api.post("/api/register/", data);
     } catch (error) {
-      throw new Error('Registration failed');
+      throw new Error("Registration failed");
     }
   }
 
   async refreshToken(): Promise<void> {
     if (!this.refreshToken) {
-      throw new Error('No refresh token available');
+      throw new Error("No refresh token available");
     }
 
     try {
-      const response = await api.post<AuthResponse>('/api/token/refresh/', {
-        refresh: this.refreshToken
+      const response = await api.post<AuthResponse>("/api/token/refresh/", {
+        refresh: this.refreshToken,
       });
       this.setTokens(response.data.access, this.refreshToken);
     } catch (error) {
       this.logout();
-      throw new Error('Token refresh failed');
+      throw new Error("Token refresh failed");
     }
   }
 
   async getCurrentUser(): Promise<User> {
     try {
-      const response = await api.get<User>('/api/users/me/');
+      const response = await api.get<User>("/api/users/me/");
       return response.data;
     } catch (error) {
-      throw new Error('Failed to get current user');
+      throw new Error("Failed to get current user");
     }
   }
 
@@ -86,17 +86,17 @@ class AuthService {
   logout(): void {
     this.accessToken = null;
     this.refreshToken = null;
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
   }
 
   private setTokens(accessToken: string, refreshToken: string): void {
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
   }
 }
 
 export const authService = new AuthService();
-export default authService; 
+export default authService;

@@ -12,7 +12,7 @@ import {
 } from 'chart.js';
 import { adminAPI } from '../../services/api';
 import type { DashboardStats, AnalyticsData } from '../../services/api';
-import InventoryManagement from './InventoryManagement';
+import InventoryManagement from './InventoryManagement'; // Case-sensitive
 
 // Register ChartJS components
 ChartJS.register(

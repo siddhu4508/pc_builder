@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAppSelector } from '../store';
-import api from '../services/api';
+import { adminAPI, authAPI, componentsAPI } from '../services/api';
+
 
 interface Build {
   id: number;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { api } from '../services/api';
+import { adminAPI, authAPI, componentsAPI } from '../services/api';
 import {
   Line,
   Bar,
@@ -77,9 +77,9 @@ const AnalyticsDashboard: React.FC = () => {
   const fetchAnalyticsData = async () => {
     try {
       const [salesResponse, componentsResponse, inventoryResponse] = await Promise.all([
-        api.get(`/admin/analytics/sales/?range=${dateRange}`),
-        api.get('/admin/analytics/top-components/'),
-        api.get('/admin/inventory/report/')
+        adminAPI.get(`/analytics/sales/?range=${dateRange}`),
+        adminAPI.get('/analytics/top-components/'),
+        adminAPI.get('/inventory/report/')
       ]);
       setSalesData(salesResponse.data);
       setTopComponents(componentsResponse.data);

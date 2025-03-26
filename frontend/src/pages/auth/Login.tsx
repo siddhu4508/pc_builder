@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store';
 import { setCredentials } from '../../store/slices/authSlice';
-import api from '../../services/api';
+import { adminAPI, authAPI, componentsAPI } from '../../services/api';
+
 
 const Login = () => {
   const dispatch = useAppDispatch();

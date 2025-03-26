@@ -146,4 +146,5 @@ export const adminAPI = {
     }),
 };
 
-export default api; 
+export const apiServices = { adminAPI, authAPI, componentsAPI };
+

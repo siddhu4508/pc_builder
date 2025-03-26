@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import { adminAPI, authAPI, componentsAPI } from '../../services/api';
 
 interface App {
   id: number;
@@ -31,7 +31,7 @@ const AppsManagement: React.FC = () => {
 
   const fetchApps = async () => {
     try {
-      const response = await api.get('/api/admin/apps/');
+      const response = await adminAPI.getApps(); // Replace with the correct method from adminAPI
       setApps(response.data);
       setError(null);
     } catch (err) {
@@ -46,9 +46,9 @@ const AppsManagement: React.FC = () => {
     e.preventDefault();
     try {
       if (editingApp) {
-        await api.put(`/api/admin/apps/${editingApp.id}/`, formData);
+        await adminAPI.put(`/api/admin/apps/${editingApp.id}/`, formData);
       } else {
-        await api.post('/api/admin/apps/', formData);
+        await adminAPI.post('/api/admin/apps/', formData);
       }
       fetchApps();
       resetForm();
@@ -73,7 +73,7 @@ const AppsManagement: React.FC = () => {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this app?')) {
       try {
-        await api.delete(`/api/admin/apps/${id}/`);
+        await adminAPI.delete(`/api/admin/apps/${id}/`);
         fetchApps();
       } catch (err) {
         setError('Failed to delete app');

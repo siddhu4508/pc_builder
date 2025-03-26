@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { adminAPI } from '../../services/api';
+import { adminAPI, authAPI, componentsAPI } from '../../services/api';
 import type { Component, InventoryAlert, Reorder } from '../../services/api';
 
 const InventoryManagement: React.FC = () => {

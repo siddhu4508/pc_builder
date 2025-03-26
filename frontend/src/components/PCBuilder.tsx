@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../store';
-import api from '../services/api';
+import { adminAPI, authAPI, componentsAPI } from '../services/api';
 
 interface Component {
   id: number;

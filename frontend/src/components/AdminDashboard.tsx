@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAppSelector } from '../store/hooks';
-import { Line, Bar, Pie } from 'react-chartjs-2';
+import api from '../services/api'; // Adjust the path to where your Axios instance is defined
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,11 +13,8 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { api } from '../services/api';
-import { DebounceInput } from 'react-debounce-input';
-import { FaSearch, FaFilter, FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
-import InventoryManagement from './admin/InventoryManagement';
-import AnalyticsDashboard from './AnalyticsDashboard';
+import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
+import InventoryManagement from '../pages/admin/InventoryManagement';
 import AppsManagement from './admin/AppsManagement';
 
 ChartJS.register(
